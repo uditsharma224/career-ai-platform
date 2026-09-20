@@ -1,0 +1,461 @@
+:root {
+    --ink: #0F2A26;
+    --ink-soft: #2C4B45;
+    --bone: #FBF8F2;
+    --bone-dim: #EFE9DD;
+    --amber: #E8A33D;
+    --amber-deep: #C5811F;
+    --rule: rgba(15, 42, 38, 0.14);
+
+    --display: "Georgia", serif;
+    --body: Arial, Helvetica, sans-serif;
+
+    --step: clamp(1.5rem, 4vw, 3rem);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bone);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+    width: min(1120px, 92vw);
+    margin-inline: auto;
+}
+
+a {
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 3px solid var(--amber-deep);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(251, 248, 242, 0.88);
+    backdrop-filter: blur(8px);
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-decoration: none;
+}
+
+.logo-mark {
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: var(--amber);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    font-size: 0.95rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--ink-soft);
+}
+
+nav a:hover {
+    color: var(--ink);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bone);
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.btn:hover {
+    background: var(--ink-soft);
+    transform: translateY(-1px);
+}
+
+.btn-amber {
+    background: var(--amber);
+    color: var(--ink);
+}
+
+.btn-amber:hover {
+    background: var(--amber-deep);
+    color: var(--bone);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    padding: clamp(3rem, 7vw, 6rem) 0 clamp(3rem, 6vw, 5rem);
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+}
+
+.stair {
+    margin: 0 0 1.8rem;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 6.2vw, 4.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+}
+
+.stair span {
+    display: block;
+}
+
+.stair span:nth-child(2) {
+    margin-left: var(--step);
+}
+
+.stair span:nth-child(3) {
+    margin-left: calc(var(--step) * 2);
+    color: var(--amber-deep);
+}
+
+.lede {
+    max-width: 46ch;
+    color: var(--ink-soft);
+    font-size: 1.08rem;
+    margin: 0 0 2rem;
+}
+
+.hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.note {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+}
+
+/* =========================
+   RESUME DEMO PANEL
+========================= */
+
+.demo {
+    background: var(--ink);
+    color: var(--bone);
+    border-radius: 20px;
+    padding: 1.6rem;
+    position: sticky;
+    top: 6rem;
+}
+
+.demo h2 {
+    margin: 0 0 0.3rem;
+    font-family: var(--display);
+    font-size: 1.4rem;
+}
+
+.demo p {
+    color: rgba(251, 248, 242, 0.62);
+    font-size: 0.9rem;
+}
+
+.upload-box {
+    border: 1px dashed rgba(251, 248, 242, 0.35);
+    border-radius: 14px;
+    padding: 2rem 1rem;
+    text-align: center;
+    margin-top: 1.2rem;
+}
+
+.upload-box p {
+    margin: 0 0 1rem;
+}
+
+.upload-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.file-input {
+    display: none;
+}
+
+.upload-label {
+    display: inline-block;
+    padding: 0.7rem 1.2rem;
+    background: var(--amber);
+    color: var(--ink);
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.band {
+    border-top: 1px solid var(--rule);
+    padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+.band h2 {
+    font-family: var(--display);
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 2.4rem;
+    max-width: 20ch;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.6rem);
+}
+
+.step {
+    padding-top: 1rem;
+    border-top: 2px solid var(--ink);
+}
+
+.step .number {
+    font-family: var(--display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--amber-deep);
+}
+
+.step h3 {
+    margin: 0.4rem 0 0.5rem;
+    font-size: 1.1rem;
+}
+
+.step p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+}
+
+/* =========================
+   CAREERAI FLOW
+========================= */
+
+.proof {
+    background: var(--bone-dim);
+    border-radius: 24px;
+    padding: clamp(2rem, 4vw, 3rem);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+}
+
+.proof .big {
+    font-family: var(--display);
+    font-size: clamp(3rem, 8vw, 5.2rem);
+    font-weight: 700;
+    line-height: 0.9;
+}
+
+.proof p {
+    margin: 0;
+    max-width: 44ch;
+    color: var(--ink-soft);
+}
+
+.proof p b {
+    color: var(--ink);
+}
+
+/* =========================
+   FINAL CTA
+========================= */
+
+.end {
+    background: var(--ink);
+    color: var(--bone);
+    border-radius: 24px;
+    padding: clamp(2.4rem, 5vw, 4rem);
+    text-align: center;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.end h2 {
+    font-family: var(--display);
+    font-size: clamp(1.8rem, 4.4vw, 3rem);
+    font-weight: 600;
+    margin: 0 0 0.8rem;
+}
+
+.end p {
+    margin: 0 auto 1.8rem;
+    max-width: 40ch;
+    color: rgba(251, 248, 242, 0.68);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    border-top: 1px solid var(--rule);
+    padding: 1.8rem 0 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+}
+
+footer a {
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+.animate {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+
+.delay-1 {
+    animation-delay: 0.08s;
+}
+
+.delay-2 {
+    animation-delay: 0.16s;
+}
+
+.delay-3 {
+    animation-delay: 0.24s;
+}
+
+@keyframes rise {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 860px) {
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .demo {
+        position: static;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+        gap: 1.6rem;
+    }
+
+    .proof {
+        grid-template-columns: 1fr;
+    }
+
+    nav .hide-sm {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+
+    nav {
+        gap: 0.7rem;
+    }
+
+    nav a {
+        font-size: 0.85rem;
+    }
+
+    .hero-cta {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .proof {
+        text-align: left;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
