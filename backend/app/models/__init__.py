@@ -1,7 +1,5 @@
-"""Database models package."""
+from .user_schema import UserCreate, UserResponse, LoginRequest
+from .resume_schema import ResumeUpload, ResumeResponse
+from .skill_schema import SkillResponse
 
-from .resume import Resume
-from .skill import Skill
-from .user import User
-
-__all__ = ["User", "Resume", "Skill"]
+__all__ = ["UserCreate", "UserResponse", "LoginRequest", "ResumeUpload", "ResumeResponse", "SkillResponse"]
