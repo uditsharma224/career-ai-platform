@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareerAI | Dashboard</title>
+  <style>
+    :root {
+      --bg: #f7f3ee;
+      --panel: #ffffff;
+      --ink: #102a27;
+      --soft: #49635f;
+      --muted: #7e8d89;
+      --border: rgba(16, 42, 39, 0.1);
+      --amber: #e8a33d;
+      --amber-deep: #c78126;
+      --success: #0f9d7a;
+      --danger: #d15d5d;
+      --shadow: rgba(15, 42, 38, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #f9f5ef 0%, #efeae3 100%);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 18px 50px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 16px;
+      z-index: 10;
+      box-shadow: 0 10px 28px var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.35rem;
+    }
+
+    .brand-mark {
+      width: 14px;
+      height: 14px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      background: var(--amber);
+      display: inline-block;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--soft);
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover { color: var(--ink); }
+
+    .pill {
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--amber) 0%, var(--amber-deep) 100%);
+      color: #1d1402;
+      font-weight: 700;
+      padding: 10px 16px;
+      cursor: pointer;
+    }
+
+    .hero {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 16px 34px var(--shadow);
+    }
+
+    .welcome {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 200px;
+      background: linear-gradient(135deg, #102b29 0%, #133f3a 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .welcome::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at bottom right, rgba(232,163,61,0.22), transparent 35%);
+    }
+
+    .welcome > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .welcome h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -0.04em;
+    }
+
+    .welcome p {
+      margin: 0;
+      max-width: 42ch;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.78);
+    }
+
+    .profile-box {
+      display: grid;
+      gap: 16px;
+    }
+
+    .profile-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      background: linear-gradient(135deg, #fee3a8 0%, #f5b75d 100%);
+      color: #1e1202;
+    }
+
+    .user-info h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .user-info p {
+      margin: 6px 0 0;
+      color: var(--soft);
+      font-size: 0.9rem;
+    }
+
+    .status {
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(15,157,122,0.1);
+      color: var(--success);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .stat {
+      background: #f9f8f6;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 14px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: var(--soft);
+      font-size: 0.82rem;
+    }
+
+    .content-grid {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+    }
+
+    .upload-card h2, .roadmap-card h2, .skills-card h2 {
+      margin: 0 0 16px;
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+
+    .upload-box {
+      border: 2px dashed rgba(232,163,61,0.5);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(232,163,61,0.08), rgba(255,255,255,0.5));
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .upload-box input[type="file"] {
+      width: 100%;
+      padding: 12px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: white;
+    }
+
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: white;
+      color: var(--ink);
+      font-size: 0.98rem;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--amber) 0%, var(--amber-deep) 100%);
+      color: #1c1602;
+    }
+
+    .btn-secondary {
+      background: #edf0ee;
+      color: var(--ink);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .skill {
+      background: rgba(232,163,61,0.1);
+      color: var(--ink);
+      border: 1px solid rgba(232,163,61,0.25);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .roadmap-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .roadmap-item {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 18px;
+      background: #fbfaf9;
+    }
+
+    .roadmap-item .phase {
+      display: inline-block;
+      background: rgba(15,157,122,0.08);
+      color: var(--success);
+      border-radius: 999px;
+      padding: 5px 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .roadmap-item h3 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .roadmap-item p {
+      margin: 0;
+      color: var(--soft);
+      line-height: 1.6;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--soft);
+      font-size: 0.82rem;
+      margin-top: 12px;
+    }
+
+    .insights {
+      display: grid;
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .insight-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .mini-panel {
+      background: #fbfaf9;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .mini-panel h4 {
+      margin: 0 0 14px;
+      font-size: 1rem;
+    }
+
+    .progress {
+      width: 100%;
+      height: 12px;
+      background: #edf0ee;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--amber) 0%, var(--amber-deep) 100%);
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+      color: var(--soft);
+    }
+
+    .list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .content-grid,
+      .insight-card {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .page {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page" id="dashboard-page">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        CareerAI
+      </div>
+
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="#">Dashboard</a>
+        <a href="#">Progress</a>
+        <a href="#">Roadmap</a>
+        <button class="pill" id="logout-btn" type="button">Log out</button>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="card welcome">
+        <div>
+          <h1 id="welcome-title">Welcome back, Udit</h1>
+          <p>
+            Your resume is ready for analysis. Review your strengths, fill skill gaps,
+            and continue improving toward your ideal role.
+          </p>
+        </div>
+      </div>
+
+      <aside class="card profile-box">
+        <div class="profile-head">
+          <div class="avatar" id="user-avatar">U</div>
+
+          <div class="user-info">
+            <h3 id="user-name">Udit Sharma</h3>
+            <p id="user-email">udit@example.com</p>
+          </div>
+
+          <span class="status">Active</span>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <strong id="match-score">72%</strong>
+            <span>Role Match</span>
+          </div>
+
+          <div class="stat">
+            <strong id="skills-count">12</strong>
+            <span>Skills</span>
+          </div>
+
+          <div class="stat">
+            <strong id="roadmap-count">3</strong>
+            <span>Roadmap Steps</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="content-grid">
+      <div class="card upload-card">
+        <h2>Upload your resume</h2>
+
+        <form id="resume-form">
+          <div class="upload-box">
+            <input type="file" id="resume-file" accept=".pdf" />
+            <select id="target-role">
+              <option value="Data Scientist">Data Scientist</option>
+              <option value="Frontend Developer">Frontend Developer</option>
+              <option value="Backend Developer">Backend Developer</option>
+              <option value="Product Analyst">Product Analyst</option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+            </select>
+
+            <div class="action-row">
+              <button class="btn btn-primary" type="submit">Analyze resume</button>
+              <button class="btn btn-secondary" type="button" id="seed-btn">Use sample data</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="skills-card" style="margin-top: 26px;">
+          <h2>Detected skills</h2>
+          <div class="skills-list" id="skills-list">
+            <span class="skill">Python</span>
+            <span class="skill">SQL</span>
+            <span class="skill">Project Management</span>
+            <span class="skill">Communication</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card roadmap-card">
+        <h2>Career roadmap</h2>
+
+        <div class="roadmap-list" id="roadmap-list">
+          <div class="roadmap-item">
+            <span class="phase">Phase 1</span>
+            <h3>Strengthen fundamentals</h3>
+            <p>Focus on Python, statistics, structured problem-solving, and data handling.</p>
+            <div class="meta-row">
+              <span>30 days</span>
+              <span>Beginner</span>
+            </div>
+          </div>
+
+          <div class="roadmap-item">
+            <span class="phase">Phase 2</span>
+            <h3>Build domain expertise</h3>
+            <p>Practice SQL, analytics workflows, dashboards, and business-case thinking.</p>
+            <div class="meta-row">
+              <span>35 days</span>
+              <span>Intermediate</span>
+            </div>
+          </div>
+
+          <div class="roadmap-item">
+            <span class="phase">Phase 3</span>
+            <h3>Target role readiness</h3>
+            <p>Work on portfolio projects, case studies, and role-specific interview preparation.</p>
+            <div class="meta-row">
+              <span>45 days</span>
+              <span>Advanced</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="insights">
+      <div class="insight-card">
+        <div class="mini-panel">
+          <h4>Career readiness</h4>
+          <div class="progress">
+            <div class="progress-bar" style="width: 72%;"></div>
+          </div>
+          <div class="meta-row">
+            <span>72% match</span>
+            <span>Ready to target</span>
+          </div>
+        </div>
+
+        <div class="mini-panel">
+          <h4>Skill gaps</h4>
+          <ul class="list">
+            <li><span>Machine Learning</span><strong>High</strong></li>
+            <li><span>Statistics</span><strong>Medium</strong></li>
+            <li><span>Portfolio building</span><strong>Medium</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
