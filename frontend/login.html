@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareerAI | Login</title>
+  <style>
+    :root {
+      --bg: #f7f3ee;
+      --panel: #ffffff;
+      --ink: #102a27;
+      --soft: #49635f;
+      --muted: #7e8d89;
+      --border: rgba(16, 42, 39, 0.1);
+      --amber: #e8a33d;
+      --amber-deep: #c78126;
+      --success: #0f9d7a;
+      --danger: #d15d5d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #f9f5ef 0%, #eef2ee 100%);
+      color: var(--ink);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+    }
+
+    .auth-shell {
+      width: min(1100px, 92vw);
+      min-height: 720px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(15, 42, 38, 0.12);
+    }
+
+    .brand-panel {
+      background: linear-gradient(180deg, #0f2a26 0%, #173a38 100%);
+      color: white;
+      padding: 56px 42px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .brand-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(232,163,61,0.18), transparent 30%);
+    }
+
+    .brand-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.7rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      margin-bottom: 50px;
+    }
+
+    .logo-mark {
+      width: 16px;
+      height: 16px;
+      border-radius: 50% 50% 50% 0;
+      background: var(--amber);
+      transform: rotate(-45deg);
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 1.05;
+      margin: 0 0 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .tagline {
+      margin: 0;
+      max-width: 30ch;
+      color: rgba(255,255,255,0.7);
+      font-size: 1.04rem;
+      line-height: 1.7;
+    }
+
+    .mini-box {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 18px 20px;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      max-width: 400px;
+    }
+
+    .mini-box .number {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      font-weight: 700;
+      background: rgba(232,163,61,0.18);
+      color: #ffe0a3;
+    }
+
+    .mini-box p {
+      margin: 0;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.5;
+    }
+
+    .form-panel {
+      background: white;
+      padding: 38px 38px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-card {
+      width: min(100%, 430px);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(232,163,61,0.11);
+      color: var(--amber-deep);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 700;
+    }
+
+    h2 {
+      margin: 20px 0 12px;
+      font-size: clamp(2rem, 3vw, 2.5rem);
+      letter-spacing: -0.04em;
+    }
+
+    .sub {
+      color: var(--soft);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 0.88rem;
+      color: var(--soft);
+      font-weight: 600;
+    }
+
+    .field input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fbfbfa;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 1rem;
+      transition: 0.2s ease;
+    }
+
+    .field input:focus {
+      outline: none;
+      border-color: rgba(232,163,61,0.8);
+      box-shadow: 0 0 0 4px rgba(232,163,61,0.14);
+      background: white;
+    }
+
+    .helper-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: -4px;
+      margin-bottom: 4px;
+      font-size: 0.86rem;
+      color: var(--soft);
+    }
+
+    .helper-row a {
+      text-decoration: none;
+      color: var(--amber-deep);
+      font-weight: 700;
+    }
+
+    .checkbox {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox input {
+      accent-color: var(--amber-deep);
+      width: 15px;
+      height: 15px;
+    }
+
+    .primary-btn {
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--amber) 0%, var(--amber-deep) 100%);
+      color: #1b1200;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 15px 18px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 12px 20px rgba(198, 127, 34, 0.2);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .muted-link {
+      text-align: center;
+      color: var(--soft);
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+
+    .muted-link a {
+      color: var(--amber-deep);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .form-message {
+      min-height: 22px;
+      font-size: 0.92rem;
+      margin-top: 2px;
+      color: var(--soft);
+    }
+
+    .form-message.error {
+      color: var(--danger);
+    }
+
+    .form-message.success {
+      color: var(--success);
+    }
+
+    @media (max-width: 860px) {
+      .auth-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-panel {
+        min-height: 260px;
+        padding: 32px 24px;
+      }
+
+      .form-panel {
+        padding: 26px 20px 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-shell">
+    <section class="brand-panel">
+      <div class="brand-content">
+        <a class="logo" href="index.html">
+          <span class="logo-mark"></span>
+          CareerAI
+        </a>
+
+        <h1>Build your career with clarity.</h1>
+
+        <p class="tagline">
+          Upload your resume, discover skill gaps, match with target roles,
+          and move toward the right career path with a personalized roadmap.
+        </p>
+      </div>
+
+      <div class="mini-box">
+        <div class="number">AI</div>
+        <p>
+          Career insights, roadmap recommendations, and role-fit analysis
+          built for students and career changers.
+        </p>
+      </div>
+    </section>
+
+    <section class="form-panel">
+      <div class="form-card">
+        <span class="eyebrow">Welcome back</span>
+        <h2>Log in</h2>
+        <p class="sub">Access your dashboard and continue your career journey.</p>
+
+        <form id="login-form">
+          <div class="field">
+            <label for="login-email">Email address</label>
+            <input id="login-email" name="email" type="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="field">
+            <label for="login-password">Password</label>
+            <input id="login-password" name="password" type="password" placeholder="Enter your password" required />
+          </div>
+
+          <div class="helper-row">
+            <label class="checkbox">
+              <input type="checkbox" />
+              <span>Remember me</span>
+            </label>
+
+            <a href="#">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="primary-btn">Log in</button>
+
+          <div id="login-message" class="form-message" aria-live="polite"></div>
+        </form>
+
+        <p class="muted-link">
+          New to CareerAI?
+          <a href="signup.html">Create an account</a>
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
