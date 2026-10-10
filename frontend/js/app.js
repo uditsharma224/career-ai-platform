@@ -10,7 +10,6 @@ const results = document.getElementById('results');
 const errorDiv = document.getElementById('error');
 const fileLabel = document.querySelector('.file-label');
 
-// File Input Handlers
 resumeForm.addEventListener('submit', handleFormSubmit);
 
 resumeFile.addEventListener('change', function() {
@@ -19,16 +18,15 @@ resumeFile.addEventListener('change', function() {
     }
 });
 
-// Drag and Drop
 fileLabel.addEventListener('dragover', (e) => {
     e.preventDefault();
-    fileLabel.style.borderColor = '#667eea';
-    fileLabel.style.background = 'linear-gradient(135deg, #e0f2fe 0%, #cffafe 100%)';
+    fileLabel.style.borderColor = '#f07d4a';
+    fileLabel.style.background = 'linear-gradient(135deg, #ffe4cc 0%, #ffd6b2 100%)';
 });
 
 fileLabel.addEventListener('dragleave', () => {
-    fileLabel.style.borderColor = '#3b82f6';
-    fileLabel.style.background = 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)';
+    fileLabel.style.borderColor = '#f59d6e';
+    fileLabel.style.background = 'linear-gradient(135deg, #fff3eb 0%, #ffe4cc 100%)';
 });
 
 fileLabel.addEventListener('drop', (e) => {
@@ -39,7 +37,6 @@ fileLabel.addEventListener('drop', (e) => {
     }
 });
 
-// Main Form Submit Handler
 async function handleFormSubmit(e) {
     e.preventDefault();
     errorDiv.style.display = 'none';
@@ -49,7 +46,6 @@ async function handleFormSubmit(e) {
         return;
     }
 
-    // Validate file size (10MB)
     if (resumeFile.files[0].size > 10 * 1024 * 1024) {
         showError('File size exceeds 10MB limit');
         return;
@@ -80,29 +76,15 @@ async function handleFormSubmit(e) {
     }
 }
 
-// Display Results
 function displayResults(data) {
-    // Display Skills
     displaySkills(data.skills_categorized, data.skills_detected);
-
-    // Display Job Matches
     displayJobs(data.job_matches);
-
-    // Display Skill Gaps
-    if (data.skill_gaps) {
-        displayGaps(data.skill_gaps);
-    }
-
-    // Display Roadmap
-    if (data.learning_roadmap) {
-        displayRoadmap(data.learning_roadmap);
-    }
-
+    if (data.skill_gaps) displayGaps(data.skill_gaps);
+    if (data.learning_roadmap) displayRoadmap(data.learning_roadmap);
     results.style.display = 'block';
     window.scrollTo({ top: results.offsetTop - 100, behavior: 'smooth' });
 }
 
-// Display Skills
 function displaySkills(categorized, allSkills) {
     const container = document.getElementById('skillsContainer');
     container.innerHTML = '';
@@ -131,14 +113,12 @@ function displaySkills(categorized, allSkills) {
         container.appendChild(categoryDiv);
     }
 
-    // Add total count
     const totalDiv = document.createElement('div');
-    totalDiv.style.cssText = 'margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 8px; text-align: center;';
-    totalDiv.innerHTML = `<strong style="color: #667eea; font-size: 1.1em;">Total Skills Detected: ${allSkills.length}</strong>`;
+    totalDiv.style.cssText = 'margin-top: 20px; padding: 15px; background: #fff3eb; border-radius: 8px; text-align: center;';
+    totalDiv.innerHTML = `<strong style="color: #f59d6e; font-size: 1.1em;">Total Skills Detected: ${allSkills.length}</strong>`;
     container.appendChild(totalDiv);
 }
 
-// Display Jobs
 function displayJobs(jobs) {
     const container = document.getElementById('jobsContainer');
     container.innerHTML = '';
@@ -148,7 +128,7 @@ function displayJobs(jobs) {
         return;
     }
 
-    jobs.forEach((job, index) => {
+    jobs.forEach((job) => {
         const card = document.createElement('div');
         card.className = 'job-card';
         card.innerHTML = `
@@ -164,12 +144,10 @@ function displayJobs(jobs) {
     });
 }
 
-// Display Skill Gaps
 function displayGaps(gaps) {
     const container = document.getElementById('gapsContainer');
     container.innerHTML = '';
 
-    // Readiness Score
     const scoreCard = document.createElement('div');
     scoreCard.className = 'gap-stat';
     scoreCard.innerHTML = `
@@ -181,7 +159,6 @@ function displayGaps(gaps) {
     `;
     container.appendChild(scoreCard);
 
-    // Gap Percentage
     const gapCard = document.createElement('div');
     gapCard.className = 'gap-stat';
     gapCard.innerHTML = `
@@ -191,7 +168,6 @@ function displayGaps(gaps) {
     `;
     container.appendChild(gapCard);
 
-    // Matched Skills
     if (gaps.matched_skills && gaps.matched_skills.length > 0) {
         const matchedDiv = document.createElement('div');
         matchedDiv.className = 'gap-skills-group';
@@ -204,7 +180,6 @@ function displayGaps(gaps) {
         container.appendChild(matchedDiv);
     }
 
-    // Missing Skills
     if (gaps.missing_skills && gaps.missing_skills.length > 0) {
         const missingDiv = document.createElement('div');
         missingDiv.className = 'gap-skills-group';
@@ -218,7 +193,6 @@ function displayGaps(gaps) {
     }
 }
 
-// Display Roadmap
 function displayRoadmap(roadmap) {
     const container = document.getElementById('roadmapContainer');
     container.innerHTML = '';
@@ -228,7 +202,7 @@ function displayRoadmap(roadmap) {
         return;
     }
 
-    roadmap.forEach((week, index) => {
+    roadmap.forEach((week) => {
         const weekDiv = document.createElement('div');
         weekDiv.className = 'roadmap-week';
         weekDiv.innerHTML = `
@@ -252,27 +226,20 @@ function displayRoadmap(roadmap) {
     });
 }
 
-// Tab Switching
 function switchTab(tabName) {
-    // Hide all tabs
     const tabs = document.querySelectorAll('.tab-content');
     tabs.forEach(tab => tab.classList.remove('active'));
 
-    // Remove active class from all buttons
     const buttons = document.querySelectorAll('.tab-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
 
-    // Show selected tab
     const selectedTab = document.getElementById(tabName);
-    if (selectedTab) {
-        selectedTab.classList.add('active');
-    }
+    if (selectedTab) selectedTab.classList.add('active');
 
-    // Add active class to clicked button
-    event.target.classList.add('active');
+    const activeButton = Array.from(buttons).find(btn => btn.textContent.toLowerCase().includes(tabName));
+    if (activeButton) activeButton.classList.add('active');
 }
 
-// Helper Functions
 function showLoading(show) {
     if (show) {
         loading.style.display = 'block';
