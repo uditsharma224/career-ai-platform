@@ -1,0 +1,32 @@
+skill,category
+Python,Programming Language
+JavaScript,Programming Language
+SQL,Database
+HTML,Frontend
+CSS,Frontend
+React,Frontend Framework
+Vue,Frontend Framework
+Node.js,Backend
+Flask,Backend Framework
+Django,Backend Framework
+Machine Learning,AI/ML
+Data Analysis,Data Science
+TensorFlow,AI/ML
+Pandas,Data Science
+NumPy,Data Science
+Excel,Tools
+Git,Version Control
+Docker,DevOps
+Kubernetes,DevOps
+AWS,Cloud
+Azure,Cloud
+Google Cloud,Cloud
+REST API,Backend
+GraphQL,Backend
+MongoDB,Database
+PostgreSQL,Database
+Communication,Soft Skills
+Leadership,Soft Skills
+Problem Solving,Soft Skills
+Teamwork,Soft Skills
+Time Management,Soft Skills

@@ -1,0 +1,11 @@
+title,required_skills,description,level
+Frontend Developer,HTML CSS JavaScript React,Build interactive user interfaces and web applications,Junior
+Backend Developer,Python SQL API Node.js,Develop server-side logic and database systems,Junior
+Data Scientist,Python SQL Machine Learning Data Analysis,Analyze data and build predictive models,Mid
+Data Analyst,SQL Excel Python Data Analysis,Extract insights from business data,Junior
+Machine Learning Engineer,Python Machine Learning TensorFlow SQL,Build and deploy ML models,Senior
+Full Stack Developer,Python JavaScript React SQL Node.js,Develop complete web applications,Mid
+DevOps Engineer,Docker Kubernetes AWS Git,Manage infrastructure and deployment,Mid
+Product Manager,Communication Leadership Problem Solving,Define product roadmap and strategy,Mid
+Cloud Architect,AWS Azure Google Cloud,Design scalable cloud solutions,Senior
+Software Engineer,Python JavaScript SQL Git,Develop and maintain software systems,Mid
