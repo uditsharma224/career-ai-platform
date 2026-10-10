@@ -74,6 +74,7 @@
             color: var(--primary);
         }
 
+        /* ============= BUTTONS ============= */
         .btn {
             padding: 0.7rem 1.5rem;
             border: none;
@@ -97,6 +98,12 @@
             box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
 
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .btn-secondary {
             background: var(--light);
             color: var(--primary);
@@ -108,15 +115,6 @@
             color: white;
         }
 
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-
-        .btn-success:hover {
-            opacity: 0.9;
-        }
-
         .btn-danger {
             background: var(--danger);
             color: white;
@@ -126,7 +124,7 @@
             opacity: 0.9;
         }
 
-        /* ============= MAIN CONTAINER ============= */
+        /* ============= CONTAINER ============= */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -162,13 +160,13 @@
         }
 
         .home-header h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .home-header p {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             opacity: 0.95;
             max-width: 600px;
             margin: 0 auto;
@@ -176,7 +174,7 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
         }
@@ -203,36 +201,16 @@
         .feature-card h3 {
             color: var(--primary);
             margin-bottom: 0.5rem;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
 
         .feature-card p {
             color: #6b7280;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
-        .cta-section {
-            text-align: center;
-            background: white;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .cta-section h2 {
-            color: var(--dark);
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-
-        .cta-section p {
-            color: #6b7280;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        /* ============= LOGIN/SIGNUP SECTION ============= */
-        .auth-section {
+        /* ============= AUTH CARDS ============= */
+        .auth-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
@@ -241,7 +219,7 @@
 
         .auth-card {
             background: white;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
@@ -250,6 +228,7 @@
             color: var(--primary);
             margin-bottom: 1.5rem;
             font-size: 1.8rem;
+            text-align: center;
         }
 
         .form-group {
@@ -261,6 +240,7 @@
             margin-bottom: 0.5rem;
             color: var(--dark);
             font-weight: 600;
+            font-size: 0.95rem;
         }
 
         .form-group input {
@@ -275,14 +255,16 @@
         .form-group input:focus {
             outline: none;
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .form-message {
-            padding: 0.75rem;
+            padding: 1rem;
             border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
             display: none;
+            border-left: 4px solid;
         }
 
         .form-message.show {
@@ -292,28 +274,34 @@
         .form-message.success {
             background: #d1fae5;
             color: #065f46;
-            border: 1px solid #6ee7b7;
+            border-left-color: var(--success);
         }
 
         .form-message.error {
             background: #fee2e2;
             color: #991b1b;
-            border: 1px solid #fca5a5;
+            border-left-color: var(--danger);
         }
 
         .form-message.info {
             background: #dbeafe;
             color: #0c4a6e;
-            border: 1px solid #7dd3fc;
+            border-left-color: var(--primary);
         }
 
-        .toggle-auth {
+        .form-btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .form-toggle {
             text-align: center;
             margin-top: 1.5rem;
             color: #6b7280;
+            font-size: 0.95rem;
         }
 
-        .toggle-auth a {
+        .form-toggle a {
             color: var(--primary);
             font-weight: 600;
             cursor: pointer;
@@ -321,10 +309,10 @@
         }
 
         /* ============= DASHBOARD ============= */
-        .dashboard {
+        .dashboard-container {
             background: white;
             border-radius: 12px;
-            padding: 2rem;
+            padding: 2.5rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
@@ -335,14 +323,16 @@
             margin-bottom: 2rem;
             padding-bottom: 2rem;
             border-bottom: 2px solid var(--border);
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .dashboard-header h2 {
+        .dashboard-title h2 {
             color: var(--dark);
             font-size: 1.8rem;
         }
 
-        .user-info {
+        .user-section {
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -359,29 +349,32 @@
             color: white;
             font-weight: 700;
             font-size: 1.3rem;
+            flex-shrink: 0;
         }
 
-        .user-details h3 {
+        .user-info h3 {
             color: var(--dark);
             margin: 0;
             font-size: 1rem;
         }
 
-        .user-details p {
+        .user-info p {
             color: #6b7280;
             margin: 0;
             font-size: 0.85rem;
         }
 
+        /* ============= TABS ============= */
         .tabs {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             margin-bottom: 2rem;
             border-bottom: 2px solid var(--border);
+            flex-wrap: wrap;
         }
 
         .tab-btn {
-            padding: 1rem 1.5rem;
+            padding: 0.9rem 1.5rem;
             background: none;
             border: none;
             font-size: 1rem;
@@ -391,6 +384,10 @@
             transition: all 0.3s ease;
             border-bottom: 3px solid transparent;
             margin-bottom: -2px;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
         }
 
         .tab-btn.active {
@@ -407,17 +404,18 @@
         }
 
         /* ============= UPLOAD SECTION ============= */
-        .upload-box {
+        .upload-area {
             border: 2px dashed var(--primary);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 3rem 2rem;
             text-align: center;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-            transition: all 0.3s ease;
             cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
         }
 
-        .upload-box:hover {
+        .upload-area:hover {
             border-color: var(--primary-dark);
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
         }
@@ -427,51 +425,40 @@
             margin-bottom: 1rem;
         }
 
-        .upload-box h3 {
+        .upload-area h3 {
             color: var(--dark);
             margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
 
-        .upload-box p {
+        .upload-area p {
             color: #6b7280;
-            margin-bottom: 1rem;
+            margin: 0.25rem 0;
         }
 
         #resumeFile {
             display: none;
         }
 
-        .upload-btn {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
+        .file-name {
+            color: var(--success);
             font-weight: 600;
-            transition: all 0.3s ease;
+            margin-top: 1rem;
+            display: none;
         }
 
-        .upload-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .role-selector {
-            margin-top: 1.5rem;
-            padding: 1.5rem;
-            background: var(--light);
-            border-radius: 8px;
-        }
-
-        .role-selector label {
+        .file-name.show {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark);
         }
 
-        .role-selector select {
-            width: 100%;
+        .upload-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-controls select {
             padding: 0.75rem;
             border: 2px solid var(--border);
             border-radius: 8px;
@@ -479,27 +466,47 @@
             cursor: pointer;
         }
 
-        .role-selector select:focus {
+        .upload-controls select:focus {
             outline: none;
             border-color: var(--primary);
         }
 
-        /* ============= RESULTS SECTION ============= */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        .upload-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .upload-buttons button {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .upload-message {
+            margin-top: 1.5rem;
+        }
+
+        /* ============= RESULTS CARDS ============= */
+        .results-section h3 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .results-section > p {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
         }
 
         .result-card {
-            background: var(--light);
-            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--light) 0%, #f3f4f6 100%);
+            padding: 2rem;
             border-radius: 12px;
             border-left: 4px solid var(--primary);
+            margin-bottom: 2rem;
         }
 
-        .result-card h3 {
+        .result-card h4 {
             color: var(--dark);
             margin-bottom: 1rem;
             font-size: 1.2rem;
@@ -508,17 +515,32 @@
         .skill-badges {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.7rem;
             margin-top: 1rem;
         }
 
         .skill-badge {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .skill-badge.success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+        }
+
+        .skill-badge.warning {
+            background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+        }
+
+        /* ============= JOB CARDS ============= */
+        .jobs-container {
+            display: grid;
+            gap: 1.5rem;
         }
 
         .job-card {
@@ -526,46 +548,48 @@
             border: 2px solid var(--border);
             padding: 1.5rem;
             border-radius: 12px;
-            margin-bottom: 1rem;
             transition: all 0.3s ease;
         }
 
         .job-card:hover {
             border-color: var(--primary);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
         }
 
         .job-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .job-title {
-            font-size: 1.2rem;
-            font-weight: 600;
+        .job-title-section h4 {
             color: var(--dark);
-        }
-
-        .match-score {
-            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
         }
 
         .job-level {
             display: inline-block;
             background: var(--primary);
             color: white;
-            padding: 0.35rem 0.75rem;
+            padding: 0.4rem 0.8rem;
             border-radius: 6px;
             font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
+        }
+
+        .job-score {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
 
         .job-description {
@@ -575,15 +599,15 @@
         }
 
         /* ============= ROADMAP ============= */
-        .roadmap-timeline {
+        .roadmap-container {
             position: relative;
-            padding: 2rem 0;
+            padding: 1rem 0;
         }
 
         .roadmap-item {
             padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--light);
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--light) 0%, #f3f4f6 100%);
             border-left: 4px solid var(--primary);
             border-radius: 8px;
             position: relative;
@@ -592,10 +616,10 @@
         .roadmap-item::before {
             content: '';
             position: absolute;
-            left: -16px;
+            left: -18px;
             top: 1.5rem;
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             border: 4px solid white;
             border-radius: 50%;
@@ -619,24 +643,25 @@
             gap: 1rem;
             margin-top: 1rem;
             font-size: 0.85rem;
-            color: #6b7280;
+            flex-wrap: wrap;
         }
 
         .meta-badge {
             background: white;
-            padding: 0.35rem 0.75rem;
+            padding: 0.4rem 0.9rem;
             border-radius: 6px;
             border: 1px solid var(--border);
+            white-space: nowrap;
         }
 
         /* ============= LOADING ============= */
-        .loading {
+        .loading-spinner {
             display: none;
             text-align: center;
             padding: 2rem;
         }
 
-        .loading.show {
+        .loading-spinner.active {
             display: block;
         }
 
@@ -653,6 +678,18 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        .loading-spinner p {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* ============= EMPTY STATE ============= */
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
         }
 
         /* ============= RESPONSIVE ============= */
@@ -672,18 +709,25 @@
                 font-size: 2rem;
             }
 
-            .auth-section {
+            .home-header p {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-grid {
                 grid-template-columns: 1fr;
             }
 
             .dashboard-header {
                 flex-direction: column;
-                gap: 1rem;
                 align-items: flex-start;
             }
 
             .tabs {
-                flex-wrap: wrap;
+                gap: 0.25rem;
             }
 
             .tab-btn {
@@ -691,16 +735,24 @@
                 font-size: 0.9rem;
             }
 
-            .results-grid {
+            .upload-controls {
                 grid-template-columns: 1fr;
+            }
+
+            .upload-buttons {
+                flex-direction: column;
             }
 
             .container {
                 padding: 1rem;
             }
+
+            .dashboard-container {
+                padding: 1.5rem;
+            }
         }
 
-        /* ============= UTILITY ============= */
+        /* ============= UTILITIES ============= */
         .text-center {
             text-align: center;
         }
@@ -725,133 +777,132 @@
         <div class="navbar-menu">
             <a onclick="showPage('home')">Home</a>
             <a id="navDashboard" onclick="showPage('dashboard')" class="hidden">Dashboard</a>
-            <a id="navLogout" onclick="logout()" class="hidden">Logout</a>
+            <a id="navLogout" onclick="handleLogout()" class="hidden">Logout</a>
         </div>
     </nav>
 
     <!-- MAIN CONTAINER -->
     <div class="container">
-        <!-- HOME PAGE -->
+        <!-- ============= HOME PAGE ============= -->
         <div id="homePage" class="page active">
+            <!-- Header Section -->
             <div class="home-header">
                 <h1>CareerAI</h1>
-                <p>AI-Powered Resume Analysis & Career Guidance Platform</p>
+                <p>AI-Powered Resume Analysis & Career Guidance</p>
             </div>
 
+            <!-- Features Grid -->
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">📄</div>
-                    <h3>Resume Upload</h3>
-                    <p>Upload your resume in PDF, DOC, DOCX, or TXT format</p>
+                    <h3>Upload Resume</h3>
+                    <p>Support PDF, DOC, DOCX & TXT formats</p>
                 </div>
-
                 <div class="feature-card">
                     <div class="feature-icon">🤖</div>
-                    <h3>AI Skill Analysis</h3>
-                    <p>Automatically extract and analyze your skills</p>
+                    <h3>AI Analysis</h3>
+                    <p>Automatic skill extraction & assessment</p>
                 </div>
-
                 <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon">💼</div>
                     <h3>Job Matching</h3>
-                    <p>Get matched with relevant job opportunities</p>
+                    <p>Get matched job opportunities</p>
                 </div>
-
                 <div class="feature-card">
                     <div class="feature-icon">🔍</div>
-                    <h3>Skill Gap Analysis</h3>
-                    <p>Identify skills you need to learn</p>
+                    <h3>Skill Gaps</h3>
+                    <p>Identify skills to learn</p>
                 </div>
-
                 <div class="feature-card">
                     <div class="feature-icon">🗺️</div>
                     <h3>Learning Roadmap</h3>
-                    <p>Get personalized learning path</p>
+                    <p>Personalized learning path</p>
                 </div>
-
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
                     <h3>Career Dashboard</h3>
-                    <p>Track your progress and manage profiles</p>
+                    <p>Track & manage your progress</p>
                 </div>
             </div>
 
-            <!-- AUTH SECTION -->
-            <div class="auth-section">
-                <!-- LOGIN CARD -->
+            <!-- Auth Section -->
+            <div class="auth-grid">
+                <!-- Login Card -->
                 <div class="auth-card">
                     <h2>Login</h2>
                     <div id="loginMessage" class="form-message"></div>
                     <form id="loginForm" onsubmit="handleLogin(event)">
                         <div class="form-group">
-                            <label for="loginEmail">Email</label>
+                            <label for="loginEmail">Email Address</label>
                             <input type="email" id="loginEmail" placeholder="Enter your email" required>
                         </div>
                         <div class="form-group">
                             <label for="loginPassword">Password</label>
                             <input type="password" id="loginPassword" placeholder="Enter your password" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                        <button type="submit" class="btn btn-primary form-btn">Login</button>
                     </form>
-                    <div class="toggle-auth">
-                        Don't have account? <a onclick="document.getElementById('signupForm').scrollIntoView({behavior: 'smooth'})">Sign up</a>
+                    <div class="form-toggle">
+                        No account? <a onclick="scrollToSignup()">Create one</a>
                     </div>
                 </div>
 
-                <!-- SIGNUP CARD -->
+                <!-- Signup Card -->
                 <div class="auth-card">
-                    <h2>Sign Up</h2>
+                    <h2>Create Account</h2>
                     <div id="signupMessage" class="form-message"></div>
                     <form id="signupForm" onsubmit="handleSignup(event)">
                         <div class="form-group">
                             <label for="signupName">Full Name</label>
-                            <input type="text" id="signupName" placeholder="Enter your full name" required>
+                            <input type="text" id="signupName" placeholder="Your full name" required>
                         </div>
                         <div class="form-group">
-                            <label for="signupEmail">Email</label>
+                            <label for="signupEmail">Email Address</label>
                             <input type="email" id="signupEmail" placeholder="Enter your email" required>
                         </div>
                         <div class="form-group">
                             <label for="signupPassword">Password</label>
-                            <input type="password" id="signupPassword" placeholder="At least 6 characters" required>
+                            <input type="password" id="signupPassword" placeholder="Min 6 characters" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                        <button type="submit" class="btn btn-primary form-btn">Create Account</button>
                     </form>
-                    <div class="toggle-auth">
-                        Already have account? <a onclick="document.getElementById('loginForm').scrollIntoView({behavior: 'smooth'})">Login</a>
+                    <div class="form-toggle">
+                        Already registered? <a onclick="scrollToLogin()">Login</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- DASHBOARD PAGE -->
+        <!-- ============= DASHBOARD PAGE ============= -->
         <div id="dashboardPage" class="page">
-            <div class="dashboard">
-                <!-- HEADER -->
+            <div class="dashboard-container">
+                <!-- Dashboard Header -->
                 <div class="dashboard-header">
-                    <h2>Dashboard</h2>
-                    <div class="user-info">
+                    <div class="dashboard-title">
+                        <h2>Dashboard</h2>
+                    </div>
+                    <div class="user-section">
                         <div class="user-avatar" id="userAvatar">U</div>
-                        <div class="user-details">
+                        <div class="user-info">
                             <h3 id="userName">User</h3>
                             <p id="userEmail">user@example.com</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- TABS -->
+                <!-- Tabs Navigation -->
                 <div class="tabs">
-                    <button class="tab-btn active" onclick="showTab('upload')">📤 Upload Resume</button>
-                    <button class="tab-btn" onclick="showTab('results')">📊 Analysis Results</button>
-                    <button class="tab-btn" onclick="showTab('roadmap')">🗺️ Learning Roadmap</button>
+                    <button class="tab-btn active" onclick="switchTab('upload', event)">📤 Upload Resume</button>
+                    <button class="tab-btn" onclick="switchTab('results', event)">📊 Analysis Results</button>
+                    <button class="tab-btn" onclick="switchTab('roadmap', event)">🗺️ Learning Roadmap</button>
                 </div>
 
-                <!-- UPLOAD TAB -->
+                <!-- Upload Tab -->
                 <div id="uploadTab" class="tab-content active">
                     <h3>Upload Your Resume</h3>
-                    <p style="color: #6b7280; margin-bottom: 1.5rem;">Upload your resume to get AI-powered analysis, skill assessment, and personalized career recommendations.</p>
+                    <p>Upload your resume to get AI-powered analysis and personalized career recommendations.</p>
 
-                    <div class="upload-box" onclick="document.getElementById('resumeFile').click()">
+                    <div class="upload-area" onclick="document.getElementById('resumeFile').click()">
                         <div class="upload-icon">📁</div>
                         <h3>Click to upload resume</h3>
                         <p>or drag and drop</p>
@@ -859,13 +910,13 @@
                         <input type="file" id="resumeFile" accept=".pdf,.doc,.docx,.txt" onchange="handleFileSelect(event)">
                     </div>
 
-                    <div id="selectedFile" style="margin-top: 1rem; display: none;">
-                        <p style="color: var(--success); font-weight: 600;">✓ <span id="fileName"></span></p>
+                    <div id="selectedFile" class="file-name">
+                        ✓ <span id="fileName"></span>
                     </div>
 
-                    <div class="role-selector">
-                        <label for="targetRole">Target Job Role</label>
+                    <div class="upload-controls">
                         <select id="targetRole">
+                            <option value="">Select Target Role</option>
                             <option value="Data Scientist">Data Scientist</option>
                             <option value="Frontend Developer">Frontend Developer</option>
                             <option value="Backend Developer">Backend Developer</option>
@@ -873,57 +924,58 @@
                             <option value="Product Manager">Product Manager</option>
                             <option value="UI/UX Designer">UI/UX Designer</option>
                         </select>
+                        <div></div>
                     </div>
 
-                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <div class="upload-buttons">
                         <button class="btn btn-primary" onclick="analyzeResume()">Analyze Resume</button>
                         <button class="btn btn-secondary" onclick="loadSampleData()">Use Sample Data</button>
                     </div>
 
-                    <div id="uploadMessage" class="form-message" style="margin-top: 1rem;"></div>
+                    <div id="uploadMessage" class="form-message upload-message"></div>
 
-                    <div id="uploadLoading" class="loading">
+                    <div id="uploadLoading" class="loading-spinner">
                         <div class="spinner"></div>
                         <p>Analyzing your resume...</p>
                     </div>
                 </div>
 
-                <!-- RESULTS TAB -->
-                <div id="resultsTab" class="tab-content" style="display: none;">
-                    <h3>Analysis Results</h3>
-                    <p style="color: #6b7280; margin-bottom: 1.5rem;">Your AI-powered career analysis</p>
+                <!-- Results Tab -->
+                <div id="resultsTab" class="tab-content results-section" style="display: none;">
+                    <h3>📊 Analysis Results</h3>
+                    <p>Your AI-powered career insights</p>
 
-                    <!-- SKILLS DETECTED -->
+                    <!-- Skills Section -->
                     <div class="result-card">
-                        <h3>🎯 Skills Detected</h3>
+                        <h4>🎯 Skills Detected</h4>
                         <div class="skill-badges" id="skillsList">
-                            <span class="skill-badge">Loading...</span>
+                            <p class="empty-state">Upload your resume first to see detected skills</p>
                         </div>
                     </div>
 
-                    <!-- JOB MATCHES -->
-                    <div class="result-card" style="margin-top: 2rem;">
-                        <h3>💼 Job Matches</h3>
-                        <div id="jobsList">
-                            <p style="color: #6b7280;">No jobs matched yet</p>
+                    <!-- Job Matches Section -->
+                    <div class="result-card">
+                        <h4>💼 Job Matches</h4>
+                        <div class="jobs-container" id="jobsList">
+                            <p class="empty-state">No jobs matched yet</p>
                         </div>
                     </div>
 
-                    <!-- SKILL GAPS -->
-                    <div class="result-card" style="margin-top: 2rem;">
-                        <h3>📊 Skill Gap Analysis</h3>
+                    <!-- Skill Gap Section -->
+                    <div class="result-card">
+                        <h4>📊 Skill Gap Analysis</h4>
                         <div id="gapsList">
-                            <p style="color: #6b7280;">No gap analysis available</p>
+                            <p class="empty-state">No gap analysis available</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- ROADMAP TAB -->
+                <!-- Roadmap Tab -->
                 <div id="roadmapTab" class="tab-content" style="display: none;">
-                    <h3>Personalized Learning Roadmap</h3>
-                    <p style="color: #6b7280; margin-bottom: 1.5rem;">Your step-by-step path to career success</p>
-                    <div class="roadmap-timeline" id="roadmapList">
-                        <p style="color: #6b7280;">No roadmap available yet. Upload your resume first!</p>
+                    <h3>🗺️ Learning Roadmap</h3>
+                    <p>Your personalized path to career success</p>
+                    <div class="roadmap-container" id="roadmapList">
+                        <p class="empty-state">Upload your resume first to see your personalized learning roadmap</p>
                     </div>
                 </div>
             </div>
@@ -932,69 +984,100 @@
 
     <script>
         // ============= STATE MANAGEMENT =============
+        const API_URL = 'http://localhost:5000';
         let currentUser = null;
         let currentToken = null;
         let analysisData = null;
 
-        const API_BASE_URL = 'http://localhost:5000';
-
         // ============= INITIALIZATION =============
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if user is already logged in
-            const savedUser = localStorage.getItem('careerai_user');
-            const savedToken = localStorage.getItem('careerai_token');
-
-            if (savedUser && savedToken) {
-                currentUser = JSON.parse(savedUser);
-                currentToken = savedToken;
-                updateNavigation();
-                showPage('dashboard');
-                updateDashboard();
-            }
+            checkAuthStatus();
+            setupEventListeners();
         });
 
-        // ============= PAGE NAVIGATION =============
-        function showPage(pageName) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
+        function checkAuthStatus() {
+            const user = localStorage.getItem('careerai_user');
+            const token = localStorage.getItem('careerai_token');
 
-            // Show selected page
-            document.getElementById(pageName + 'Page').classList.add('active');
-
-            // Reset to upload tab when going to dashboard
-            if (pageName === 'dashboard' && currentUser) {
-                showTab('upload');
+            if (user && token) {
+                currentUser = JSON.parse(user);
+                currentToken = token;
+                updateNavigation();
                 updateDashboard();
             }
         }
 
-        function showTab(tabName) {
-            // Hide all tabs
+        function setupEventListeners() {
+            // Drag and drop for file upload
+            const uploadArea = document.querySelector('.upload-area');
+            if (uploadArea) {
+                uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadArea.style.borderColor = 'var(--primary-dark)';
+                });
+
+                uploadArea.addEventListener('dragleave', () => {
+                    uploadArea.style.borderColor = 'var(--primary)';
+                });
+
+                uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadArea.style.borderColor = 'var(--primary)';
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0) {
+                        document.getElementById('resumeFile').files = files;
+                        handleFileSelect({ target: { files } });
+                    }
+                });
+            }
+        }
+
+        // ============= NAVIGATION FUNCTIONS =============
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageName + 'Page').classList.add('active');
+
+            if (pageName === 'dashboard' && !currentUser) {
+                showPage('home');
+                showMessage('loginMessage', '❌ Please login first', 'error');
+            }
+        }
+
+        function switchTab(tabName, event) {
+            event.preventDefault();
+            
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
 
-            // Hide all tab buttons
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
 
-            // Show selected tab
             document.getElementById(tabName + 'Tab').classList.add('active');
-
-            // Highlight selected button
             event.target.classList.add('active');
         }
 
-        // ============= AUTHENTICATION =============
-        async function handleLogin(e) {
-            e.preventDefault();
+        function updateNavigation() {
+            document.getElementById('navDashboard').classList.remove('hidden');
+            document.getElementById('navLogout').classList.remove('hidden');
+        }
 
+        function updateDashboard() {
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userEmail').textContent = currentUser.email;
+                document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+            }
+        }
+
+        // ============= AUTHENTICATION =============
+        async function handleLogin(event) {
+            event.preventDefault();
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
-            const messageEl = document.getElementById('loginMessage');
 
             if (!email || !password) {
                 showMessage('loginMessage', '❌ Please fill in all fields', 'error');
@@ -1002,7 +1085,7 @@
             }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+                const response = await fetch(`${API_URL}/api/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
@@ -1015,32 +1098,29 @@
                     return;
                 }
 
-                // Save auth data
                 currentUser = data.user;
                 currentToken = data.token;
                 localStorage.setItem('careerai_user', JSON.stringify(currentUser));
                 localStorage.setItem('careerai_token', currentToken);
 
                 showMessage('loginMessage', '✅ Login successful! Redirecting...', 'success');
+                document.getElementById('loginForm').reset();
 
                 setTimeout(() => {
-                    document.getElementById('loginForm').reset();
                     updateNavigation();
-                    showPage('dashboard');
                     updateDashboard();
-                }, 1500);
+                    showPage('dashboard');
+                }, 1000);
             } catch (error) {
                 showMessage('loginMessage', `❌ ${error.message}`, 'error');
             }
         }
 
-        async function handleSignup(e) {
-            e.preventDefault();
-
+        async function handleSignup(event) {
+            event.preventDefault();
             const name = document.getElementById('signupName').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
             const password = document.getElementById('signupPassword').value.trim();
-            const messageEl = document.getElementById('signupMessage');
 
             if (!name || !email || !password) {
                 showMessage('signupMessage', '❌ Please fill in all fields', 'error');
@@ -1053,7 +1133,7 @@
             }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+                const response = await fetch(`${API_URL}/api/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, email, password })
@@ -1066,99 +1146,85 @@
                     return;
                 }
 
-                // Save auth data
                 currentUser = data.user;
                 currentToken = data.token;
                 localStorage.setItem('careerai_user', JSON.stringify(currentUser));
                 localStorage.setItem('careerai_token', currentToken);
 
                 showMessage('signupMessage', '✅ Account created! Redirecting...', 'success');
+                document.getElementById('signupForm').reset();
 
                 setTimeout(() => {
-                    document.getElementById('signupForm').reset();
                     updateNavigation();
-                    showPage('dashboard');
                     updateDashboard();
-                }, 1500);
+                    showPage('dashboard');
+                }, 1000);
             } catch (error) {
                 showMessage('signupMessage', `❌ ${error.message}`, 'error');
             }
         }
 
-        function logout() {
+        function handleLogout() {
             localStorage.removeItem('careerai_user');
             localStorage.removeItem('careerai_token');
             currentUser = null;
             currentToken = null;
             analysisData = null;
-            updateNavigation();
-            showPage('home');
+
+            document.getElementById('navDashboard').classList.add('hidden');
+            document.getElementById('navLogout').classList.add('hidden');
+
             document.getElementById('loginForm').reset();
             document.getElementById('signupForm').reset();
-        }
 
-        function updateNavigation() {
-            const navDashboard = document.getElementById('navDashboard');
-            const navLogout = document.getElementById('navLogout');
-
-            if (currentUser) {
-                navDashboard.classList.remove('hidden');
-                navLogout.classList.remove('hidden');
-            } else {
-                navDashboard.classList.add('hidden');
-                navLogout.classList.add('hidden');
-            }
-        }
-
-        function updateDashboard() {
-            if (currentUser) {
-                document.getElementById('userName').textContent = currentUser.name;
-                document.getElementById('userEmail').textContent = currentUser.email;
-                document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
-            }
+            showPage('home');
         }
 
         // ============= RESUME UPLOAD =============
-        function handleFileSelect(e) {
-            const file = e.target.files[0];
-            const fileDiv = document.getElementById('selectedFile');
-            const fileNameSpan = document.getElementById('fileName');
-
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
             if (file) {
-                fileNameSpan.textContent = file.name;
-                fileDiv.style.display = 'block';
+                document.getElementById('fileName').textContent = file.name;
+                document.getElementById('selectedFile').classList.add('show');
             }
         }
 
         async function analyzeResume() {
             const fileInput = document.getElementById('resumeFile');
             const file = fileInput.files[0];
-            const targetRole = document.getElementById('targetRole').value;
-            const messageEl = document.getElementById('uploadMessage');
-            const loadingEl = document.getElementById('uploadLoading');
+            const role = document.getElementById('targetRole').value;
 
             if (!file) {
                 showMessage('uploadMessage', '❌ Please select a resume file', 'error');
                 return;
             }
 
-            if (file.size > 10 * 1024 * 1024) {
-                showMessage('uploadMessage', '❌ File size exceeds 10MB limit', 'error');
+            if (!role) {
+                showMessage('uploadMessage', '❌ Please select a target role', 'error');
                 return;
             }
 
-            loadingEl.classList.add('show');
+            if (file.size > 10 * 1024 * 1024) {
+                showMessage('uploadMessage', '❌ File exceeds 10MB', 'error');
+                return;
+            }
+
+            const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
+            if (!allowedTypes.includes(file.type)) {
+                showMessage('uploadMessage', '❌ Only PDF, DOC, DOCX, TXT files allowed', 'error');
+                return;
+            }
+
+            document.getElementById('uploadLoading').classList.add('active');
 
             try {
                 const formData = new FormData();
                 formData.append('resume', file);
-                formData.append('target_role', targetRole);
+                formData.append('target_role', role);
 
-                const response = await fetch(`${API_BASE_URL}/api/resume/upload`, {
+                const response = await fetch(`${API_URL}/api/resume/upload`, {
                     method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${currentToken}`
-                    },
+                    headers: { 'Authorization': `Bearer ${currentToken}` },
                     body: formData
                 });
 
@@ -1171,110 +1237,96 @@
                 analysisData = data.data;
                 displayResults();
                 showMessage('uploadMessage', '✅ Resume analyzed successfully!', 'success');
-                showTab('results');
-                loadingEl.classList.remove('show');
+                document.getElementById('uploadLoading').classList.remove('active');
+
+                // Switch to results tab
+                setTimeout(() => {
+                    document.querySelectorAll('.tab-btn')[1].click();
+                }, 500);
             } catch (error) {
                 showMessage('uploadMessage', `❌ ${error.message}`, 'error');
-                loadingEl.classList.remove('show');
+                document.getElementById('uploadLoading').classList.remove('active');
             }
         }
 
         function loadSampleData() {
-            const targetRole = document.getElementById('targetRole').value;
+            const role = document.getElementById('targetRole').value || 'Data Scientist';
 
-            // Mock data
-            const sampleData = {
+            const samples = {
                 'Data Scientist': {
-                    skills_detected: ['Python', 'SQL', 'Statistics', 'Machine Learning', 'Data Visualization', 'Pandas', 'NumPy'],
+                    skills_detected: ['Python', 'SQL', 'Statistics', 'Machine Learning', 'Data Visualization', 'Pandas'],
                     job_matches: [
                         {
                             title: 'Senior Data Scientist',
                             level: 'Senior',
                             match_score: 82,
                             description: 'Build ML models and analytics pipelines',
-                            required_skills: ['Python', 'SQL', 'Machine Learning', 'Statistics']
+                            required_skills: ['Python', 'SQL', 'ML', 'Statistics']
                         },
                         {
                             title: 'Data Analyst',
-                            level: 'Mid-level',
+                            level: 'Mid',
                             match_score: 78,
                             description: 'Analyze business data and create dashboards',
-                            required_skills: ['SQL', 'Data Visualization', 'Statistics']
+                            required_skills: ['SQL', 'Visualization', 'Statistics']
                         }
                     ],
                     skill_gaps: {
                         readiness_score: 82,
                         gap_percentage: 18,
                         matched_skills: ['Python', 'SQL', 'Statistics'],
-                        missing_skills: ['Deep Learning', 'TensorFlow', 'Cloud Platforms']
+                        missing_skills: ['Deep Learning', 'TensorFlow', 'Cloud']
                     },
                     learning_roadmap: [
                         {
                             week: 'Week 1-2',
-                            skill: 'Advanced Python & Data Structures',
+                            skill: 'Advanced Python',
                             course: 'Master Python for Data Science',
                             difficulty: 'Intermediate',
-                            duration: '16 hours',
-                            tasks: ['Advanced data types', 'Functional programming', 'Performance optimization']
+                            duration: '16 hours'
                         },
                         {
                             week: 'Week 3-4',
-                            skill: 'Machine Learning Fundamentals',
+                            skill: 'Machine Learning',
                             course: 'ML Algorithms & Implementation',
                             difficulty: 'Intermediate',
-                            duration: '20 hours',
-                            tasks: ['Supervised learning', 'Unsupervised learning', 'Model evaluation']
-                        },
-                        {
-                            week: 'Week 5-6',
-                            skill: 'Deep Learning Basics',
-                            course: 'Neural Networks & TensorFlow',
-                            difficulty: 'Advanced',
-                            duration: '18 hours',
-                            tasks: ['Neural network architecture', 'TensorFlow basics', 'Model training']
+                            duration: '20 hours'
                         }
                     ]
                 },
                 'Frontend Developer': {
-                    skills_detected: ['HTML', 'CSS', 'JavaScript', 'React', 'UI/UX', 'Responsive Design'],
+                    skills_detected: ['HTML', 'CSS', 'JavaScript', 'React', 'UI/UX'],
                     job_matches: [
                         {
                             title: 'Senior Frontend Developer',
                             level: 'Senior',
                             match_score: 85,
                             description: 'Build scalable React applications',
-                            required_skills: ['React', 'JavaScript', 'CSS', 'HTML']
+                            required_skills: ['React', 'JavaScript', 'CSS']
                         }
                     ],
                     skill_gaps: {
                         readiness_score: 85,
                         gap_percentage: 15,
                         matched_skills: ['HTML', 'CSS', 'JavaScript', 'React'],
-                        missing_skills: ['TypeScript', 'Testing', 'Performance Optimization']
+                        missing_skills: ['TypeScript', 'Testing']
                     },
                     learning_roadmap: [
                         {
                             week: 'Week 1-2',
-                            skill: 'TypeScript Essentials',
+                            skill: 'TypeScript',
                             course: 'From JavaScript to TypeScript',
                             difficulty: 'Intermediate',
                             duration: '14 hours'
-                        },
-                        {
-                            week: 'Week 3-4',
-                            skill: 'Testing & Quality Assurance',
-                            course: 'Jest, React Testing Library',
-                            difficulty: 'Intermediate',
-                            duration: '16 hours'
                         }
                     ]
                 },
                 'Backend Developer': {
-                    skills_detected: ['Python', 'Node.js', 'APIs', 'Databases', 'System Design', 'SQL'],
+                    skills_detected: ['Python', 'Node.js', 'APIs', 'SQL', 'System Design'],
                     job_matches: [
                         {
                             title: 'Backend Engineer',
-                            level: 'Mid-level',
+                            level: 'Mid',
                             match_score: 80,
                             description: 'Design and build REST APIs',
                             required_skills: ['Python', 'Databases', 'APIs']
@@ -1283,13 +1335,13 @@
                     skill_gaps: {
                         readiness_score: 80,
                         gap_percentage: 20,
-                        matched_skills: ['Python', 'APIs', 'Databases'],
-                        missing_skills: ['Microservices', 'Docker', 'Kubernetes']
+                        matched_skills: ['Python', 'APIs', 'SQL'],
+                        missing_skills: ['Microservices', 'Docker']
                     },
                     learning_roadmap: [
                         {
                             week: 'Week 1-2',
-                            skill: 'System Design Patterns',
+                            skill: 'System Design',
                             course: 'Building Scalable Systems',
                             difficulty: 'Advanced',
                             duration: '20 hours'
@@ -1298,32 +1350,36 @@
                 }
             };
 
-            const role = sampleData[targetRole] || sampleData['Data Scientist'];
-            analysisData = role;
+            analysisData = samples[role] || samples['Data Scientist'];
             displayResults();
-            showMessage('uploadMessage', '✅ Sample data loaded successfully!', 'success');
-            showTab('results');
+            showMessage('uploadMessage', '✅ Sample data loaded!', 'success');
+
+            setTimeout(() => {
+                document.querySelectorAll('.tab-btn')[1].click();
+            }, 500);
         }
 
         function displayResults() {
             if (!analysisData) return;
 
-            // Display skills
+            // Display Skills
             const skillsList = document.getElementById('skillsList');
             skillsList.innerHTML = analysisData.skills_detected
-                .map(skill => `<span class="skill-badge">${skill}</span>`)
+                .map(s => `<span class="skill-badge">${s}</span>`)
                 .join('');
 
-            // Display job matches
+            // Display Jobs
             const jobsList = document.getElementById('jobsList');
             jobsList.innerHTML = analysisData.job_matches
                 .map(job => `
                     <div class="job-card">
                         <div class="job-header">
-                            <div class="job-title">${job.title}</div>
-                            <div class="match-score">${job.match_score}% Match</div>
+                            <div class="job-title-section">
+                                <h4>${job.title}</h4>
+                                <span class="job-level">${job.level}</span>
+                            </div>
+                            <span class="job-score">${job.match_score}% Match</span>
                         </div>
-                        <div class="job-level">${job.level}</div>
                         <p class="job-description">${job.description}</p>
                         <div class="skill-badges">
                             ${job.required_skills.map(s => `<span class="skill-badge">${s}</span>`).join('')}
@@ -1332,37 +1388,37 @@
                 `)
                 .join('');
 
-            // Display skill gaps
+            // Display Skill Gaps
             const gapsList = document.getElementById('gapsList');
             if (analysisData.skill_gaps) {
                 gapsList.innerHTML = `
-                    <div style="margin-bottom: 1rem;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
                             <span style="font-weight: 600; color: var(--dark);">Career Readiness: ${analysisData.skill_gaps.readiness_score}%</span>
-                            <span style="color: #6b7280;">${analysisData.skill_gaps.gap_percentage}% gap</span>
+                            <span style="color: #6b7280;">Gap: ${analysisData.skill_gaps.gap_percentage}%</span>
                         </div>
-                        <div style="background: var(--border); height: 8px; border-radius: 4px; overflow: hidden;">
-                            <div style="background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%); height: 100%; width: ${analysisData.skill_gaps.readiness_score}%;"></div>
+                        <div style="background: var(--border); height: 12px; border-radius: 6px; overflow: hidden;">
+                            <div style="background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%); height: 100%; width: ${analysisData.skill_gaps.readiness_score}%; transition: width 0.5s ease;"></div>
                         </div>
                     </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
                         <div>
-                            <h4 style="color: var(--success); margin-bottom: 0.5rem;">✓ Your Skills</h4>
+                            <h5 style="color: var(--success); margin-bottom: 0.75rem; font-weight: 600;">✓ Your Current Skills</h5>
                             <div class="skill-badges">
-                                ${analysisData.skill_gaps.matched_skills.map(s => `<span class="skill-badge" style="background: linear-gradient(135deg, var(--success) 0%, #059669 100%);">${s}</span>`).join('')}
+                                ${analysisData.skill_gaps.matched_skills.map(s => `<span class="skill-badge success">${s}</span>`).join('')}
                             </div>
                         </div>
                         <div>
-                            <h4 style="color: var(--warning); margin-bottom: 0.5rem;">📚 To Learn</h4>
+                            <h5 style="color: var(--warning); margin-bottom: 0.75rem; font-weight: 600;">📚 Skills to Learn</h5>
                             <div class="skill-badges">
-                                ${analysisData.skill_gaps.missing_skills.map(s => `<span class="skill-badge" style="background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);">${s}</span>`).join('')}
+                                ${analysisData.skill_gaps.missing_skills.map(s => `<span class="skill-badge warning">${s}</span>`).join('')}
                             </div>
                         </div>
                     </div>
                 `;
             }
 
-            // Display roadmap
+            // Display Roadmap
             const roadmapList = document.getElementById('roadmapList');
             roadmapList.innerHTML = analysisData.learning_roadmap
                 .map(item => `
@@ -1370,11 +1426,10 @@
                         <h4>${item.skill}</h4>
                         <p>${item.course}</p>
                         <div class="roadmap-meta">
-                            <span class="meta-badge">⏱️ ${item.duration || 'TBD'}</span>
+                            <span class="meta-badge">⏱️ ${item.duration}</span>
                             <span class="meta-badge">📊 ${item.difficulty}</span>
                             <span class="meta-badge">📅 ${item.week}</span>
                         </div>
-                        ${item.tasks ? `<p style="margin-top: 0.75rem; color: #6b7280; font-size: 0.9rem;">Tasks: ${item.tasks.join(', ')}</p>` : ''}
                     </div>
                 `)
                 .join('');
@@ -1382,14 +1437,21 @@
 
         // ============= UTILITY FUNCTIONS =============
         function showMessage(elementId, message, type) {
-            const messageEl = document.getElementById(elementId);
-            messageEl.textContent = message;
-            messageEl.className = `form-message show ${type}`;
-            
-            // Auto-hide after 5 seconds
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `form-message show ${type}`;
+
             setTimeout(() => {
-                messageEl.classList.remove('show');
+                element.classList.remove('show');
             }, 5000);
+        }
+
+        function scrollToLogin() {
+            document.getElementById('loginForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToSignup() {
+            document.getElementById('signupForm').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
