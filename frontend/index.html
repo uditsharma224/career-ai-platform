@@ -3,104 +3,1394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareerAI Platform - Resume Analysis</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>CareerAI - AI-Powered Resume Analysis & Career Guidance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #764ba2;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --border: #e5e7eb;
+            --text: #374151;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ============= NAVIGATION ============= */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .navbar-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-menu a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            opacity: 0.9;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            opacity: 0.9;
+        }
+
+        /* ============= MAIN CONTAINER ============= */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* ============= PAGES ============= */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============= HOME PAGE ============= */
+        .home-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .home-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .home-header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-section h2 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .cta-section p {
+            color: #6b7280;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* ============= LOGIN/SIGNUP SECTION ============= */
+        .auth-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .auth-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-card h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-message {
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .form-message.show {
+            display: block;
+        }
+
+        .form-message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .form-message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .form-message.info {
+            background: #dbeafe;
+            color: #0c4a6e;
+            border: 1px solid #7dd3fc;
+        }
+
+        .toggle-auth {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #6b7280;
+        }
+
+        .toggle-auth a {
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* ============= DASHBOARD ============= */
+        .dashboard {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .dashboard-header h2 {
+            color: var(--dark);
+            font-size: 1.8rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .user-details h3 {
+            color: var(--dark);
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .user-details p {
+            color: #6b7280;
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ============= UPLOAD SECTION ============= */
+        .upload-box {
+            border: 2px dashed var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-box:hover {
+            border-color: var(--primary-dark);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-box h3 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-box p {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        #resumeFile {
+            display: none;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .role-selector {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--light);
+            border-radius: 8px;
+        }
+
+        .role-selector label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .role-selector select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .role-selector select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* ============= RESULTS SECTION ============= */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .result-card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .result-card h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .skill-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-badge {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .job-card {
+            background: white;
+            border: 2px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .job-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .job-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .match-score {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .job-level {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .job-description {
+            color: #6b7280;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        /* ============= ROADMAP ============= */
+        .roadmap-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .roadmap-item {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--light);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: -16px;
+            top: 1.5rem;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .roadmap-item h4 {
+            color: var(--dark);
+            margin: 0 0 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .roadmap-item p {
+            color: #6b7280;
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .roadmap-meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .meta-badge {
+            background: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        /* ============= LOADING ============= */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid var(--light);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ============= RESPONSIVE ============= */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .navbar-menu {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+
+            .home-header h1 {
+                font-size: 2rem;
+            }
+
+            .auth-section {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        /* ============= UTILITY ============= */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 2rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 2rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>🚀 CareerAI Platform</h1>
-            <p>AI-Powered Resume Analysis & Career Guidance</p>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="navbar-brand">🚀 CareerAI</div>
+        <div class="navbar-menu">
+            <a onclick="showPage('home')">Home</a>
+            <a id="navDashboard" onclick="showPage('dashboard')" class="hidden">Dashboard</a>
+            <a id="navLogout" onclick="logout()" class="hidden">Logout</a>
         </div>
+    </nav>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Upload Section -->
-            <div class="upload-section">
-                <div class="upload-box">
-                    <h2>📄 Upload Your Resume</h2>
-                    <p>Get instant analysis of your skills and personalized career recommendations</p>
-                    
-                    <form id="resumeForm" class="form-group">
-                        <div class="file-input-wrapper">
-                            <input 
-                                type="file" 
-                                id="resumeFile" 
-                                accept=".pdf,.doc,.docx,.txt" 
-                                required
-                                class="file-input"
-                            >
-                            <label for="resumeFile" class="file-label">
-                                <span class="upload-icon">📤</span>
-                                <span class="upload-text">Click to select or drag & drop your resume</span>
-                                <span class="file-hint">PDF, DOC, DOCX, or TXT (Max 10MB)</span>
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary" id="analyzeBtn">
-                            <span class="btn-text">Analyze Resume</span>
-                            <span class="btn-loader" style="display:none;">⏳ Processing...</span>
-                        </button>
-                    </form>
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <!-- HOME PAGE -->
+        <div id="homePage" class="page active">
+            <div class="home-header">
+                <h1>CareerAI</h1>
+                <p>AI-Powered Resume Analysis & Career Guidance Platform</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📄</div>
+                    <h3>Resume Upload</h3>
+                    <p>Upload your resume in PDF, DOC, DOCX, or TXT format</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Skill Analysis</h3>
+                    <p>Automatically extract and analyze your skills</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Job Matching</h3>
+                    <p>Get matched with relevant job opportunities</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Skill Gap Analysis</h3>
+                    <p>Identify skills you need to learn</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <h3>Learning Roadmap</h3>
+                    <p>Get personalized learning path</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Career Dashboard</h3>
+                    <p>Track your progress and manage profiles</p>
                 </div>
             </div>
 
-            <!-- Loading State -->
-            <div id="loading" class="loading-state" style="display:none;">
-                <div class="spinner"></div>
-                <h3>🤖 AI is analyzing your resume...</h3>
-                <p>This usually takes 5-10 seconds</p>
-            </div>
-
-            <!-- Results Section -->
-            <div id="results" class="results-section" style="display:none;">
-                <!-- Skills Tab -->
-                <div class="tab-section">
-                    <div class="tab-buttons">
-                        <button class="tab-btn active" onclick="switchTab('skills')">🎯 Skills Detected</button>
-                        <button class="tab-btn" onclick="switchTab('jobs')">💼 Job Matches</button>
-                        <button class="tab-btn" onclick="switchTab('gaps')">📊 Skill Gaps</button>
-                        <button class="tab-btn" onclick="switchTab('roadmap')">🚀 Learning Roadmap</button>
+            <!-- AUTH SECTION -->
+            <div class="auth-section">
+                <!-- LOGIN CARD -->
+                <div class="auth-card">
+                    <h2>Login</h2>
+                    <div id="loginMessage" class="form-message"></div>
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                    </form>
+                    <div class="toggle-auth">
+                        Don't have account? <a onclick="document.getElementById('signupForm').scrollIntoView({behavior: 'smooth'})">Sign up</a>
                     </div>
                 </div>
 
-                <!-- Skills Tab Content -->
-                <div id="skills" class="tab-content active">
-                    <h3>Skills Detected from Your Resume</h3>
-                    <div id="skillsContainer" class="skills-container"></div>
-                </div>
-
-                <!-- Jobs Tab Content -->
-                <div id="jobs" class="tab-content" style="display:none;">
-                    <h3>Recommended Job Roles</h3>
-                    <div id="jobsContainer" class="jobs-container"></div>
-                </div>
-
-                <!-- Gaps Tab Content -->
-                <div id="gaps" class="tab-content" style="display:none;">
-                    <h3>Skill Gap Analysis</h3>
-                    <div id="gapsContainer" class="gaps-container"></div>
-                </div>
-
-                <!-- Roadmap Tab Content -->
-                <div id="roadmap" class="tab-content" style="display:none;">
-                    <h3>Your Personalized Learning Roadmap</h3>
-                    <div id="roadmapContainer" class="roadmap-container"></div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button class="btn btn-secondary" onclick="location.reload()">📤 Upload Another Resume</button>
-                    <button class="btn btn-secondary" onclick="downloadReport()">💾 Download Report</button>
+                <!-- SIGNUP CARD -->
+                <div class="auth-card">
+                    <h2>Sign Up</h2>
+                    <div id="signupMessage" class="form-message"></div>
+                    <form id="signupForm" onsubmit="handleSignup(event)">
+                        <div class="form-group">
+                            <label for="signupName">Full Name</label>
+                            <input type="text" id="signupName" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email</label>
+                            <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" placeholder="At least 6 characters" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                    </form>
+                    <div class="toggle-auth">
+                        Already have account? <a onclick="document.getElementById('loginForm').scrollIntoView({behavior: 'smooth'})">Login</a>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Error Message -->
-            <div id="error" class="error-message" style="display:none;"></div>
+        <!-- DASHBOARD PAGE -->
+        <div id="dashboardPage" class="page">
+            <div class="dashboard">
+                <!-- HEADER -->
+                <div class="dashboard-header">
+                    <h2>Dashboard</h2>
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <div class="user-details">
+                            <h3 id="userName">User</h3>
+                            <p id="userEmail">user@example.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABS -->
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="showTab('upload')">📤 Upload Resume</button>
+                    <button class="tab-btn" onclick="showTab('results')">📊 Analysis Results</button>
+                    <button class="tab-btn" onclick="showTab('roadmap')">🗺️ Learning Roadmap</button>
+                </div>
+
+                <!-- UPLOAD TAB -->
+                <div id="uploadTab" class="tab-content active">
+                    <h3>Upload Your Resume</h3>
+                    <p style="color: #6b7280; margin-bottom: 1.5rem;">Upload your resume to get AI-powered analysis, skill assessment, and personalized career recommendations.</p>
+
+                    <div class="upload-box" onclick="document.getElementById('resumeFile').click()">
+                        <div class="upload-icon">📁</div>
+                        <h3>Click to upload resume</h3>
+                        <p>or drag and drop</p>
+                        <p style="font-size: 0.85rem; color: #9ca3af;">PDF, DOC, DOCX, TXT (Max 10MB)</p>
+                        <input type="file" id="resumeFile" accept=".pdf,.doc,.docx,.txt" onchange="handleFileSelect(event)">
+                    </div>
+
+                    <div id="selectedFile" style="margin-top: 1rem; display: none;">
+                        <p style="color: var(--success); font-weight: 600;">✓ <span id="fileName"></span></p>
+                    </div>
+
+                    <div class="role-selector">
+                        <label for="targetRole">Target Job Role</label>
+                        <select id="targetRole">
+                            <option value="Data Scientist">Data Scientist</option>
+                            <option value="Frontend Developer">Frontend Developer</option>
+                            <option value="Backend Developer">Backend Developer</option>
+                            <option value="Full Stack Developer">Full Stack Developer</option>
+                            <option value="Product Manager">Product Manager</option>
+                            <option value="UI/UX Designer">UI/UX Designer</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                        <button class="btn btn-primary" onclick="analyzeResume()">Analyze Resume</button>
+                        <button class="btn btn-secondary" onclick="loadSampleData()">Use Sample Data</button>
+                    </div>
+
+                    <div id="uploadMessage" class="form-message" style="margin-top: 1rem;"></div>
+
+                    <div id="uploadLoading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Analyzing your resume...</p>
+                    </div>
+                </div>
+
+                <!-- RESULTS TAB -->
+                <div id="resultsTab" class="tab-content" style="display: none;">
+                    <h3>Analysis Results</h3>
+                    <p style="color: #6b7280; margin-bottom: 1.5rem;">Your AI-powered career analysis</p>
+
+                    <!-- SKILLS DETECTED -->
+                    <div class="result-card">
+                        <h3>🎯 Skills Detected</h3>
+                        <div class="skill-badges" id="skillsList">
+                            <span class="skill-badge">Loading...</span>
+                        </div>
+                    </div>
+
+                    <!-- JOB MATCHES -->
+                    <div class="result-card" style="margin-top: 2rem;">
+                        <h3>💼 Job Matches</h3>
+                        <div id="jobsList">
+                            <p style="color: #6b7280;">No jobs matched yet</p>
+                        </div>
+                    </div>
+
+                    <!-- SKILL GAPS -->
+                    <div class="result-card" style="margin-top: 2rem;">
+                        <h3>📊 Skill Gap Analysis</h3>
+                        <div id="gapsList">
+                            <p style="color: #6b7280;">No gap analysis available</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROADMAP TAB -->
+                <div id="roadmapTab" class="tab-content" style="display: none;">
+                    <h3>Personalized Learning Roadmap</h3>
+                    <p style="color: #6b7280; margin-bottom: 1.5rem;">Your step-by-step path to career success</p>
+                    <div class="roadmap-timeline" id="roadmapList">
+                        <p style="color: #6b7280;">No roadmap available yet. Upload your resume first!</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script src="js/app.js"></script>
+    <script>
+        // ============= STATE MANAGEMENT =============
+        let currentUser = null;
+        let currentToken = null;
+        let analysisData = null;
+
+        const API_BASE_URL = 'http://localhost:5000';
+
+        // ============= INITIALIZATION =============
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is already logged in
+            const savedUser = localStorage.getItem('careerai_user');
+            const savedToken = localStorage.getItem('careerai_token');
+
+            if (savedUser && savedToken) {
+                currentUser = JSON.parse(savedUser);
+                currentToken = savedToken;
+                updateNavigation();
+                showPage('dashboard');
+                updateDashboard();
+            }
+        });
+
+        // ============= PAGE NAVIGATION =============
+        function showPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(pageName + 'Page').classList.add('active');
+
+            // Reset to upload tab when going to dashboard
+            if (pageName === 'dashboard' && currentUser) {
+                showTab('upload');
+                updateDashboard();
+            }
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Hide all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+
+            // Highlight selected button
+            event.target.classList.add('active');
+        }
+
+        // ============= AUTHENTICATION =============
+        async function handleLogin(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const messageEl = document.getElementById('loginMessage');
+
+            if (!email || !password) {
+                showMessage('loginMessage', '❌ Please fill in all fields', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    showMessage('loginMessage', `❌ ${data.error || 'Login failed'}`, 'error');
+                    return;
+                }
+
+                // Save auth data
+                currentUser = data.user;
+                currentToken = data.token;
+                localStorage.setItem('careerai_user', JSON.stringify(currentUser));
+                localStorage.setItem('careerai_token', currentToken);
+
+                showMessage('loginMessage', '✅ Login successful! Redirecting...', 'success');
+
+                setTimeout(() => {
+                    document.getElementById('loginForm').reset();
+                    updateNavigation();
+                    showPage('dashboard');
+                    updateDashboard();
+                }, 1500);
+            } catch (error) {
+                showMessage('loginMessage', `❌ ${error.message}`, 'error');
+            }
+        }
+
+        async function handleSignup(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value.trim();
+            const messageEl = document.getElementById('signupMessage');
+
+            if (!name || !email || !password) {
+                showMessage('signupMessage', '❌ Please fill in all fields', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('signupMessage', '❌ Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    showMessage('signupMessage', `❌ ${data.error || 'Signup failed'}`, 'error');
+                    return;
+                }
+
+                // Save auth data
+                currentUser = data.user;
+                currentToken = data.token;
+                localStorage.setItem('careerai_user', JSON.stringify(currentUser));
+                localStorage.setItem('careerai_token', currentToken);
+
+                showMessage('signupMessage', '✅ Account created! Redirecting...', 'success');
+
+                setTimeout(() => {
+                    document.getElementById('signupForm').reset();
+                    updateNavigation();
+                    showPage('dashboard');
+                    updateDashboard();
+                }, 1500);
+            } catch (error) {
+                showMessage('signupMessage', `❌ ${error.message}`, 'error');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('careerai_user');
+            localStorage.removeItem('careerai_token');
+            currentUser = null;
+            currentToken = null;
+            analysisData = null;
+            updateNavigation();
+            showPage('home');
+            document.getElementById('loginForm').reset();
+            document.getElementById('signupForm').reset();
+        }
+
+        function updateNavigation() {
+            const navDashboard = document.getElementById('navDashboard');
+            const navLogout = document.getElementById('navLogout');
+
+            if (currentUser) {
+                navDashboard.classList.remove('hidden');
+                navLogout.classList.remove('hidden');
+            } else {
+                navDashboard.classList.add('hidden');
+                navLogout.classList.add('hidden');
+            }
+        }
+
+        function updateDashboard() {
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userEmail').textContent = currentUser.email;
+                document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+            }
+        }
+
+        // ============= RESUME UPLOAD =============
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            const fileDiv = document.getElementById('selectedFile');
+            const fileNameSpan = document.getElementById('fileName');
+
+            if (file) {
+                fileNameSpan.textContent = file.name;
+                fileDiv.style.display = 'block';
+            }
+        }
+
+        async function analyzeResume() {
+            const fileInput = document.getElementById('resumeFile');
+            const file = fileInput.files[0];
+            const targetRole = document.getElementById('targetRole').value;
+            const messageEl = document.getElementById('uploadMessage');
+            const loadingEl = document.getElementById('uploadLoading');
+
+            if (!file) {
+                showMessage('uploadMessage', '❌ Please select a resume file', 'error');
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                showMessage('uploadMessage', '❌ File size exceeds 10MB limit', 'error');
+                return;
+            }
+
+            loadingEl.classList.add('show');
+
+            try {
+                const formData = new FormData();
+                formData.append('resume', file);
+                formData.append('target_role', targetRole);
+
+                const response = await fetch(`${API_BASE_URL}/api/resume/upload`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Analysis failed');
+                }
+
+                analysisData = data.data;
+                displayResults();
+                showMessage('uploadMessage', '✅ Resume analyzed successfully!', 'success');
+                showTab('results');
+                loadingEl.classList.remove('show');
+            } catch (error) {
+                showMessage('uploadMessage', `❌ ${error.message}`, 'error');
+                loadingEl.classList.remove('show');
+            }
+        }
+
+        function loadSampleData() {
+            const targetRole = document.getElementById('targetRole').value;
+
+            // Mock data
+            const sampleData = {
+                'Data Scientist': {
+                    skills_detected: ['Python', 'SQL', 'Statistics', 'Machine Learning', 'Data Visualization', 'Pandas', 'NumPy'],
+                    job_matches: [
+                        {
+                            title: 'Senior Data Scientist',
+                            level: 'Senior',
+                            match_score: 82,
+                            description: 'Build ML models and analytics pipelines',
+                            required_skills: ['Python', 'SQL', 'Machine Learning', 'Statistics']
+                        },
+                        {
+                            title: 'Data Analyst',
+                            level: 'Mid-level',
+                            match_score: 78,
+                            description: 'Analyze business data and create dashboards',
+                            required_skills: ['SQL', 'Data Visualization', 'Statistics']
+                        }
+                    ],
+                    skill_gaps: {
+                        readiness_score: 82,
+                        gap_percentage: 18,
+                        matched_skills: ['Python', 'SQL', 'Statistics'],
+                        missing_skills: ['Deep Learning', 'TensorFlow', 'Cloud Platforms']
+                    },
+                    learning_roadmap: [
+                        {
+                            week: 'Week 1-2',
+                            skill: 'Advanced Python & Data Structures',
+                            course: 'Master Python for Data Science',
+                            difficulty: 'Intermediate',
+                            duration: '16 hours',
+                            tasks: ['Advanced data types', 'Functional programming', 'Performance optimization']
+                        },
+                        {
+                            week: 'Week 3-4',
+                            skill: 'Machine Learning Fundamentals',
+                            course: 'ML Algorithms & Implementation',
+                            difficulty: 'Intermediate',
+                            duration: '20 hours',
+                            tasks: ['Supervised learning', 'Unsupervised learning', 'Model evaluation']
+                        },
+                        {
+                            week: 'Week 5-6',
+                            skill: 'Deep Learning Basics',
+                            course: 'Neural Networks & TensorFlow',
+                            difficulty: 'Advanced',
+                            duration: '18 hours',
+                            tasks: ['Neural network architecture', 'TensorFlow basics', 'Model training']
+                        }
+                    ]
+                },
+                'Frontend Developer': {
+                    skills_detected: ['HTML', 'CSS', 'JavaScript', 'React', 'UI/UX', 'Responsive Design'],
+                    job_matches: [
+                        {
+                            title: 'Senior Frontend Developer',
+                            level: 'Senior',
+                            match_score: 85,
+                            description: 'Build scalable React applications',
+                            required_skills: ['React', 'JavaScript', 'CSS', 'HTML']
+                        }
+                    ],
+                    skill_gaps: {
+                        readiness_score: 85,
+                        gap_percentage: 15,
+                        matched_skills: ['HTML', 'CSS', 'JavaScript', 'React'],
+                        missing_skills: ['TypeScript', 'Testing', 'Performance Optimization']
+                    },
+                    learning_roadmap: [
+                        {
+                            week: 'Week 1-2',
+                            skill: 'TypeScript Essentials',
+                            course: 'From JavaScript to TypeScript',
+                            difficulty: 'Intermediate',
+                            duration: '14 hours'
+                        },
+                        {
+                            week: 'Week 3-4',
+                            skill: 'Testing & Quality Assurance',
+                            course: 'Jest, React Testing Library',
+                            difficulty: 'Intermediate',
+                            duration: '16 hours'
+                        }
+                    ]
+                },
+                'Backend Developer': {
+                    skills_detected: ['Python', 'Node.js', 'APIs', 'Databases', 'System Design', 'SQL'],
+                    job_matches: [
+                        {
+                            title: 'Backend Engineer',
+                            level: 'Mid-level',
+                            match_score: 80,
+                            description: 'Design and build REST APIs',
+                            required_skills: ['Python', 'Databases', 'APIs']
+                        }
+                    ],
+                    skill_gaps: {
+                        readiness_score: 80,
+                        gap_percentage: 20,
+                        matched_skills: ['Python', 'APIs', 'Databases'],
+                        missing_skills: ['Microservices', 'Docker', 'Kubernetes']
+                    },
+                    learning_roadmap: [
+                        {
+                            week: 'Week 1-2',
+                            skill: 'System Design Patterns',
+                            course: 'Building Scalable Systems',
+                            difficulty: 'Advanced',
+                            duration: '20 hours'
+                        }
+                    ]
+                }
+            };
+
+            const role = sampleData[targetRole] || sampleData['Data Scientist'];
+            analysisData = role;
+            displayResults();
+            showMessage('uploadMessage', '✅ Sample data loaded successfully!', 'success');
+            showTab('results');
+        }
+
+        function displayResults() {
+            if (!analysisData) return;
+
+            // Display skills
+            const skillsList = document.getElementById('skillsList');
+            skillsList.innerHTML = analysisData.skills_detected
+                .map(skill => `<span class="skill-badge">${skill}</span>`)
+                .join('');
+
+            // Display job matches
+            const jobsList = document.getElementById('jobsList');
+            jobsList.innerHTML = analysisData.job_matches
+                .map(job => `
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="job-title">${job.title}</div>
+                            <div class="match-score">${job.match_score}% Match</div>
+                        </div>
+                        <div class="job-level">${job.level}</div>
+                        <p class="job-description">${job.description}</p>
+                        <div class="skill-badges">
+                            ${job.required_skills.map(s => `<span class="skill-badge">${s}</span>`).join('')}
+                        </div>
+                    </div>
+                `)
+                .join('');
+
+            // Display skill gaps
+            const gapsList = document.getElementById('gapsList');
+            if (analysisData.skill_gaps) {
+                gapsList.innerHTML = `
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600; color: var(--dark);">Career Readiness: ${analysisData.skill_gaps.readiness_score}%</span>
+                            <span style="color: #6b7280;">${analysisData.skill_gaps.gap_percentage}% gap</span>
+                        </div>
+                        <div style="background: var(--border); height: 8px; border-radius: 4px; overflow: hidden;">
+                            <div style="background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%); height: 100%; width: ${analysisData.skill_gaps.readiness_score}%;"></div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                        <div>
+                            <h4 style="color: var(--success); margin-bottom: 0.5rem;">✓ Your Skills</h4>
+                            <div class="skill-badges">
+                                ${analysisData.skill_gaps.matched_skills.map(s => `<span class="skill-badge" style="background: linear-gradient(135deg, var(--success) 0%, #059669 100%);">${s}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--warning); margin-bottom: 0.5rem;">📚 To Learn</h4>
+                            <div class="skill-badges">
+                                ${analysisData.skill_gaps.missing_skills.map(s => `<span class="skill-badge" style="background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);">${s}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Display roadmap
+            const roadmapList = document.getElementById('roadmapList');
+            roadmapList.innerHTML = analysisData.learning_roadmap
+                .map(item => `
+                    <div class="roadmap-item">
+                        <h4>${item.skill}</h4>
+                        <p>${item.course}</p>
+                        <div class="roadmap-meta">
+                            <span class="meta-badge">⏱️ ${item.duration || 'TBD'}</span>
+                            <span class="meta-badge">📊 ${item.difficulty}</span>
+                            <span class="meta-badge">📅 ${item.week}</span>
+                        </div>
+                        ${item.tasks ? `<p style="margin-top: 0.75rem; color: #6b7280; font-size: 0.9rem;">Tasks: ${item.tasks.join(', ')}</p>` : ''}
+                    </div>
+                `)
+                .join('');
+        }
+
+        // ============= UTILITY FUNCTIONS =============
+        function showMessage(elementId, message, type) {
+            const messageEl = document.getElementById(elementId);
+            messageEl.textContent = message;
+            messageEl.className = `form-message show ${type}`;
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                messageEl.classList.remove('show');
+            }, 5000);
+        }
+    </script>
 </body>
 </html>
