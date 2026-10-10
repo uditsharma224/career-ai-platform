@@ -1,26 +1,53 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import os
 
-def match_jobs(candidate_skills, job_roles_path):
-    job_df = pd.read_csv(job_roles_path)
-    job_df["combined"] = job_df["required_skills"].fillna("")
+def load_job_roles():
+    """Load job roles database from CSV"""
+    csv_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'job_roles.csv')
+    try:
+        df = pd.read_csv(csv_path)
+        return df
+    except:
+        return pd.DataFrame()
+
+def match_jobs(candidate_skills):
+    """Match candidate to suitable job roles using ML"""
+    job_df = load_job_roles()
+    
+    if job_df.empty or not candidate_skills:
+        return []
+    
+    # Prepare text data
     candidate_text = " ".join(candidate_skills)
-
-    docs = [candidate_text] + list(job_df["combined"])
+    job_texts = job_df['required_skills'].fillna('').tolist()
+    
+    # Vectorize
+    all_texts = [candidate_text] + job_texts
     vectorizer = TfidfVectorizer()
-    matrix = vectorizer.fit_transform(docs)
-
-    similarities = cosine_similarity(matrix[0:1], matrix[1:])[0]
-    ranked = []
-
+    tfidf_matrix = vectorizer.fit_transform(all_texts)
+    
+    # Calculate similarities
+    candidate_vector = tfidf_matrix[0:1]
+    job_vectors = tfidf_matrix[1:]
+    
+    similarities = cosine_similarity(candidate_vector, job_vectors)[0]
+    
+    # Create ranked list
+    matches = []
     for idx, score in enumerate(similarities):
         job = job_df.iloc[idx]
-        ranked.append({
-            "title": job["title"],
-            "score": round(float(score) * 100, 2),
-            "required_skills": job["required_skills"].split(","),
-            "description": job["description"]
+        match_score = round(float(score) * 100, 2)
+        
+        matches.append({
+            'title': job['title'],
+            'match_score': match_score,
+            'required_skills': [s.strip() for s in job['required_skills'].split(',')],
+            'description': job['description'],
+            'level': job['level']
         })
-
-    return sorted(ranked, key=lambda x: x["score"], reverse=True)[:5]
+    
+    # Sort by score and return top 5
+    matches = sorted(matches, key=lambda x: x['match_score'], reverse=True)
+    return matches[:5]
